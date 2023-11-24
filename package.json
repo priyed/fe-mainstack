@@ -9,8 +9,10 @@
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",
+    "axios": "^1.6.2",
     "react": "latest",
     "react-dom": "latest",
+    "react-router-dom": "^6.20.0",
     "react-scripts": "latest",
     "styled-components": "latest"
   },

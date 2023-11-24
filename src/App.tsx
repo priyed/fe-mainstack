@@ -1,14 +1,6 @@
 import * as React from "react";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import ProTip from "./ProTip";
+import { Box } from "@mui/material";
 
 export default function App() {
-  return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <ProTip />
-      </Box>
-    </Container>
-  );
+  return <Box>New things</Box>;
 }
