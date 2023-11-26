@@ -62,7 +62,7 @@ interface ProfileItemProps {
 const ProfileItems = ({ title }: ProfileItemProps) => {
   return (
     <Box sx={{ cursor: "pointer", mt: 2 }}>
-      <Typography fontWeight={600} fontSize={11}>
+      <Typography fontWeight={600} fontSize={11} fontFamily={"Work Sans"}>
         {title}
       </Typography>
     </Box>
@@ -82,10 +82,14 @@ const ProfileDropdown = ({ initials, profileItems }: ProfileDropdownProps) => {
           <AvatarContent>{initials}</AvatarContent>
         </Avatar>
         <Box display={"flex"} flexDirection={"column"}>
-          <Typography sx={{ fontSize: 14, fontWeight: 700 }}>
+          <Typography
+            sx={{ fontSize: 14, fontWeight: 700, fontFamily: "Work Sans" }}
+          >
             Stanley Duye
           </Typography>
-          <Typography sx={{ fontWeight: 300, fontSize: 12 }}>
+          <Typography
+            sx={{ fontWeight: 300, fontSize: 12, fontFamily: "Work Sans" }}
+          >
             stanleyduye@gmail.com
           </Typography>
         </Box>

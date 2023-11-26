@@ -19,7 +19,7 @@ const Item = styled(ListItemButton)`
 const NavItemText = styled(Typography)`
   color: var(--gray-gray-400, #56616b);
   text-align: center;
-
+  font-family: "Work Sans", sans-serif;
   font-size: 13px;
   font-style: normal;
   font-weight: 500;

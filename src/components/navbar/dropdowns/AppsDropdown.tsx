@@ -55,15 +55,17 @@ const ItemTitle = styled(Typography)`
   font-weight: 600;
   line-height: 24px;
   letter-spacing: -0.2px;
+  font-family: "Work Sans";
 `;
 
 const ItemDescription = styled(Typography)`
   color: var(--gray-gray-400, #56616b);
-  font-size: 11px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 16px;
   letter-spacing: -0.2px;
+  font-family: "Work Sans";
 `;
 
 interface SubmenuItems {
