@@ -1,6 +1,6 @@
 {
   "name": "mainstack",
-  "version": "5.0.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@mui/lab": "latest",
@@ -9,8 +9,11 @@
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",
+    "@types/chart.js": "^2.9.41",
     "axios": "^1.6.2",
+    "chart.js": "^4.4.0",
     "react": "latest",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "latest",
     "react-router-dom": "^6.20.0",
     "react-scripts": "latest",

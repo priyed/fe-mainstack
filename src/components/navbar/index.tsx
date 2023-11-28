@@ -44,13 +44,14 @@ const NavContainer = styled(Container)`
 `;
 
 const nav_items = [
-  { title: "Home", icon: homeIcon },
-  { title: "Analytics", icon: insertChart },
-  { title: "Revenue", icon: paymentsIcon },
-  { title: "CRM", icon: groupIcon },
+  { title: "Home", icon: homeIcon, to: "/" },
+  { title: "Analytics", icon: insertChart, to: "/analytics" },
+  { title: "Revenue", icon: paymentsIcon, to: "/revenue" },
+  { title: "CRM", icon: groupIcon, to: "/crm" },
   {
     title: "Apps",
     icon: widgetsIcon,
+    to: "apps",
     submenu: [
       {
         title: "Link in Bio",
@@ -88,10 +89,10 @@ const Navbar = () => {
 
       <NavItemsContainer>
         {nav_items.map((item) => {
-          const { title, icon, submenu } = item;
+          const { title, icon, submenu, to } = item;
           return (
             <Box key={title}>
-              <NavbarItem title={title} icon={icon} submenu={submenu} />
+              <NavbarItem title={title} icon={icon} to={to} submenu={submenu} />
             </Box>
           );
         })}

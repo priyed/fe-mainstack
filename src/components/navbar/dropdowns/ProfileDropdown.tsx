@@ -9,9 +9,8 @@ const DropdownContainer = styled(Box)`
   right: 40px;
   border-radius: 20px;
   background: var(--white-white-100, #fff);
-
-  box-shadow: 0px 2px 4px 0px rgba(45, 59, 67, 0.05),
-    0px 2px 6px 0px rgba(45, 59, 67, 0.06);
+  box-shadow: 0px 4px 8px 0px rgba(45, 59, 67, 0.05),
+    0px 4px 12px 0px rgba(45, 59, 67, 0.06);
   backdrop-filter: blur(8px);
   padding: 20px;
   display: flex;

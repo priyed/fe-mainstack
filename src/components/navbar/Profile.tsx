@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
 import ProfileDropdown from "./dropdowns/ProfileDropdown";
@@ -61,9 +61,20 @@ const profileItems = [
 
 const Profile = ({ initials, icon }: ProfileProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const handleDropDownFocus = (state: boolean) => {
+    setShowDropdown(!state);
+  };
+
+  const handleClickOutsideDropdown = (e: any) => {
+    if (showDropdown && !dropdownRef.current?.contains(e.target as Node)) {
+      setShowDropdown(false);
+    }
+  };
+  window.addEventListener("click", handleClickOutsideDropdown);
   return (
-    <>
-      <ProfileContainer onClick={() => setShowDropdown(!showDropdown)}>
+    <div ref={dropdownRef}>
+      <ProfileContainer onClick={() => handleDropDownFocus(showDropdown)}>
         <Avatar>
           <AvatarContent>{initials}</AvatarContent>
         </Avatar>
@@ -72,7 +83,7 @@ const Profile = ({ initials, icon }: ProfileProps) => {
       {showDropdown && (
         <ProfileDropdown initials={initials} profileItems={profileItems} />
       )}
-    </>
+    </div>
   );
 };
 export default Profile;

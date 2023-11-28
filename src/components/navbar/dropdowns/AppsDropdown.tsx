@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { forwardRef } from "react";
 import styled from "styled-components";
 
 const DropdownContainer = styled(Box)`
@@ -9,8 +10,8 @@ const DropdownContainer = styled(Box)`
   border-radius: 20px;
   background: var(--white-white-100, #fff);
 
-  box-shadow: 0px 2px 4px 0px rgba(45, 59, 67, 0.05),
-    0px 2px 6px 0px rgba(45, 59, 67, 0.06);
+  box-shadow: 0px 4px 8px 0px rgba(45, 59, 67, 0.05),
+    0px 4px 12px 0px rgba(45, 59, 67, 0.06);
   backdrop-filter: blur(8px);
   padding: 10px;
   display: flex;
@@ -25,8 +26,8 @@ const DropdownItem = styled(Box)`
   transition: all 0.5s ease-in-out;
   &:hover {
     background: var(--trashed-colors-white-100, #fff);
-    box-shadow: 0px 2px 4px 0px rgba(45, 59, 67, 0.05),
-      0px 2px 6px 0px rgba(45, 59, 67, 0.08);
+    box-shadow: 0px 2px 4px 0px rgba(45, 59, 67, 0.09),
+      0px 2px 6px 0px rgba(45, 59, 67, 0.1);
   }
   border-radius: 10px;
   padding: 10px;
@@ -77,7 +78,8 @@ interface DropdownProps {
   submenu: SubmenuItems[];
 }
 
-const AppsDropdown = ({ submenu: items }: DropdownProps) => {
+const AppsDropdown = forwardRef<HTMLDivElement, DropdownProps>((props, ref) => {
+  const { submenu: items } = props;
   return (
     <DropdownContainer>
       {items.map((item) => {
@@ -96,6 +98,6 @@ const AppsDropdown = ({ submenu: items }: DropdownProps) => {
       })}
     </DropdownContainer>
   );
-};
+});
 
 export default AppsDropdown;

@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import styled from "styled-components";
 
 import AvailableBalance from "./AvailableBalance";
-import BalanceChart from "./Chart";
+import BalanceChart from "./chart";
 import BalanceTray from "./BalanceTray";
 import { infoIcon } from "../../../assets";
 
