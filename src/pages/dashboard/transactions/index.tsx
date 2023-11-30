@@ -78,7 +78,10 @@ const Transactions = () => {
     );
 
     const filteredData = initialTransactions.filter((transaction) => {
-      if (transformedOptions.includes(transaction.type)) {
+      if (
+        transformedOptions.includes(transaction.type) ||
+        transformedOptions.includes(transaction.status)
+      ) {
         return transaction;
       }
     });

@@ -112,7 +112,7 @@ const Heading = styled(Typography)`
   text-transform: capitalize;
 `;
 
-const DateHeading = styled(Typography)`
+const SubHeading = styled(Typography)`
   ${typographyBase};
   font-size: 16px;
   font-weight: 600;
@@ -133,7 +133,7 @@ const ChipText = styled(Typography)`
   line-height: 16px;
 `;
 
-const SelectDropdownContainer = styled(Box)``;
+const DropdownContainer = styled(Box)``;
 const DropDownSelectField = styled(Box)`
   border-radius: 12px;
   border: 1px solid var(--gray-gray-50, #eff1f6);
@@ -230,6 +230,8 @@ const transactionOptions = [
   "Cashbacks",
   "Refer & Earn",
 ];
+
+const transactionStatus = ["Successful", "Pending", "Failed"];
 interface MenuProps {
   icon: any;
   closeFilter: (close: boolean) => void;
@@ -242,14 +244,17 @@ const FilterMenu = ({ icon, closeFilter, applyFilters }: MenuProps) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [openTransactionSelect, setOpenTransactionSelect] = useState(false);
+  const [openTransactionStatus, setOpenTransactionStatus] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
 
   // Effects
   useEffect(() => {
     setSelectedOptions(transactionOptions);
+    setSelectedStatus(transactionStatus);
   }, []);
   // Handlers
-  const handleChecked = (
+  const handleTypeChecked = (
     event: React.ChangeEvent<HTMLInputElement>,
     item: string
   ) => {
@@ -259,15 +264,26 @@ const FilterMenu = ({ icon, closeFilter, applyFilters }: MenuProps) => {
       setSelectedOptions(selectedOptions.filter((option) => option !== item));
     }
   };
+  const handleStatusChecked = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    item: string
+  ) => {
+    if (event.target.checked) {
+      setSelectedStatus([...selectedStatus, item]);
+    } else {
+      setSelectedStatus(selectedStatus.filter((option) => option !== item));
+    }
+  };
 
   const handleClearFilters = () => {
     setSelectedOptions([]);
+    setSelectedStatus([]);
     setStartDate(null);
     setEndDate(null);
   };
 
   const handleApplyFilters = () => {
-    applyFilters && applyFilters(selectedOptions);
+    applyFilters && applyFilters([...selectedOptions, ...selectedStatus]);
   };
 
   return (
@@ -288,7 +304,7 @@ const FilterMenu = ({ icon, closeFilter, applyFilters }: MenuProps) => {
           })}
         </Box>
         <Box p={2}>
-          <DateHeading>Date Range</DateHeading>
+          <SubHeading>Date Range</SubHeading>
           <Box display={"flex"} gap={1} mt={2}>
             <DatePicker
               open={openStart}
@@ -346,8 +362,8 @@ const FilterMenu = ({ icon, closeFilter, applyFilters }: MenuProps) => {
             />
           </Box>
         </Box>
-        <SelectDropdownContainer p={2}>
-          <DateHeading>Transaction Type</DateHeading>
+        <DropdownContainer p={2}>
+          <SubHeading>Transaction Type</SubHeading>
           <DropDownSelectField
             mt={2}
             onClick={() => setOpenTransactionSelect(!openTransactionSelect)}
@@ -370,7 +386,7 @@ const FilterMenu = ({ icon, closeFilter, applyFilters }: MenuProps) => {
                     >
                       <Checkbox
                         checked={selectedOptions.includes(type)}
-                        onChange={(e) => handleChecked(e, type)}
+                        onChange={(e) => handleTypeChecked(e, type)}
                         checkedIcon={<CheckBox sx={{ color: "#000" }} />}
                       />
                       <TransactionType>{type}</TransactionType>
@@ -380,7 +396,42 @@ const FilterMenu = ({ icon, closeFilter, applyFilters }: MenuProps) => {
               </DropDownList>
             </DropDownListContainer>
           )}
-        </SelectDropdownContainer>
+        </DropdownContainer>
+        <DropdownContainer p={2}>
+          <SubHeading>Transaction Status</SubHeading>
+          <DropDownSelectField
+            mt={2}
+            onClick={() => setOpenTransactionStatus(!openTransactionStatus)}
+          >
+            <SelectedTransactions>
+              {selectedStatus.join(", ")}
+            </SelectedTransactions>
+          </DropDownSelectField>
+          {openTransactionStatus && (
+            <DropDownListContainer>
+              <DropDownList>
+                {transactionStatus.map((status) => {
+                  return (
+                    <TransactionItem
+                      key={status}
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                      }}
+                    >
+                      <Checkbox
+                        checked={selectedStatus.includes(status)}
+                        onChange={(e) => handleStatusChecked(e, status)}
+                        checkedIcon={<CheckBox sx={{ color: "#000" }} />}
+                      />
+                      <TransactionType>{status}</TransactionType>
+                    </TransactionItem>
+                  );
+                })}
+              </DropDownList>
+            </DropDownListContainer>
+          )}
+        </DropdownContainer>
         <FilterButtons display={"flex"} gap={2} p={2} justifyContent={"center"}>
           <ClearButton onClick={handleClearFilters}>Clear</ClearButton>
           <ApplyButton onClick={handleApplyFilters}>Apply</ApplyButton>
