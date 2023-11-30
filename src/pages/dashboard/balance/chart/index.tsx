@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { Line } from "react-chartjs-2";
-import { ChartData, ScatterDataPoint, ChartOptions } from "chart.js";
 import { Box } from "@mui/material";
-import { spacing } from "@mui/system";
-import { alpha } from "@mui/material/styles";
 
 import LineChart from "./LineChart";
 
 const ChartContainer = styled(Box)`
-  max-width: 765px;
+  max-width: 100%;
   height: 257px;
   margin-top: 20px;
   font-family: "Work Sans", sans-serif;
+
+  @media (min-width: 1024px) {
+    max-width: 765px;
+  }
 `;
 
 function BalanceChart() {

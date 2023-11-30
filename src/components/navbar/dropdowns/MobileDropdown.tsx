@@ -5,14 +5,14 @@ const DropdownContainer = styled(Box)`
   width: 300px;
   height: fit-content;
   position: absolute;
-  top: 60px;
+  top: 80px;
+  right: 40px;
   border-radius: 20px;
   background: var(--white-white-100, #fff);
-
   box-shadow: 0px 4px 8px 0px rgba(45, 59, 67, 0.05),
     0px 4px 12px 0px rgba(45, 59, 67, 0.06);
   backdrop-filter: blur(8px);
-  padding: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -33,24 +33,11 @@ const DropdownItem = styled(Box)`
   cursor: pointer;
 `;
 
-const Icon = styled.img``;
-
-const IconContainer = styled(Box)`
-  border: 1px solid var(--gray-gray-50, #eff1f6);
-  background: var(--trashed-colors-white-100, #fff);
-  padding: 5px;
-  border-radius: 10px;
-  width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const ItemTextContainer = styled(Box)``;
 
 const ItemTitle = styled(Typography)`
   color: var(--black-black-300, #131316);
-  font-size: 13px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
@@ -58,38 +45,24 @@ const ItemTitle = styled(Typography)`
   font-family: "Work Sans";
 `;
 
-const ItemDescription = styled(Typography)`
-  color: var(--gray-gray-400, #56616b);
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: -0.2px;
-  font-family: "Work Sans";
-`;
-
-interface SubmenuItems {
+interface MobileNavigationItems {
   title: string;
-  description: string;
-  icon: any;
-}
-interface DropdownProps {
-  submenu: SubmenuItems[];
+  to: string;
 }
 
-const AppsDropdown = ({ submenu: items }: DropdownProps) => {
+interface MobileNavigationProps {
+  items: MobileNavigationItems[];
+}
+
+const MobileDropdown = ({ items }: MobileNavigationProps) => {
   return (
     <DropdownContainer>
       {items.map((item) => {
-        const { title, description, icon } = item;
+        const { title } = item;
         return (
           <DropdownItem key={title}>
-            <IconContainer>
-              <Icon src={icon} alt="dropdown icon" />
-            </IconContainer>
             <ItemTextContainer>
               <ItemTitle>{title}</ItemTitle>
-              <ItemDescription>{description}</ItemDescription>
             </ItemTextContainer>
           </DropdownItem>
         );
@@ -98,4 +71,4 @@ const AppsDropdown = ({ submenu: items }: DropdownProps) => {
   );
 };
 
-export default AppsDropdown;
+export default MobileDropdown;

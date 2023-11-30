@@ -1,10 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
 
+import Loader from "../../../shared/Loader";
+
 const AvailableBalanceContainer = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
   gap: 64px;
 `;
 const AvailableBalanceText = styled(Typography)`
@@ -46,15 +49,28 @@ const WithdrawButton = styled.button`
   background: var(--black-black-300, #131316);
   cursor: pointer;
 `;
-const AvailableBalance = () => {
+
+interface AvailableBalanceProps {
+  balance: number | undefined;
+  loading: boolean;
+}
+const AvailableBalance = ({ balance, loading }: AvailableBalanceProps) => {
   return (
-    <AvailableBalanceContainer>
-      <Box display="flex" flexDirection="column" gap={1}>
-        <AvailableBalanceText>Available Balance</AvailableBalanceText>
-        <BalanceAmount>USD 10,500.00</BalanceAmount>
-      </Box>
-      <WithdrawButton>Withdraw</WithdrawButton>
-    </AvailableBalanceContainer>
+    <>
+      <AvailableBalanceContainer>
+        {loading && !balance ? (
+          <Loader />
+        ) : (
+          <>
+            <Box display="flex" flexDirection="column" gap={1}>
+              <AvailableBalanceText>Available Balance</AvailableBalanceText>
+              <BalanceAmount>USD {balance}</BalanceAmount>
+            </Box>
+            <WithdrawButton>Withdraw</WithdrawButton>
+          </>
+        )}
+      </AvailableBalanceContainer>
+    </>
   );
 };
 export default AvailableBalance;

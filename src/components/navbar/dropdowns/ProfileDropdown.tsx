@@ -70,10 +70,19 @@ const ProfileItems = ({ title }: ProfileItemProps) => {
 
 interface ProfileDropdownProps {
   initials: string;
+  first_name: string | undefined;
+  last_name: string | undefined;
+  email: string | undefined;
   profileItems: Items[];
 }
 
-const ProfileDropdown = ({ initials, profileItems }: ProfileDropdownProps) => {
+const ProfileDropdown = ({
+  initials,
+  first_name,
+  last_name,
+  email,
+  profileItems,
+}: ProfileDropdownProps) => {
   return (
     <DropdownContainer>
       <UserDetailsContainer>
@@ -84,12 +93,12 @@ const ProfileDropdown = ({ initials, profileItems }: ProfileDropdownProps) => {
           <Typography
             sx={{ fontSize: 14, fontWeight: 700, fontFamily: "Work Sans" }}
           >
-            Stanley Duye
+            {first_name} {last_name}
           </Typography>
           <Typography
             sx={{ fontWeight: 300, fontSize: 12, fontFamily: "Work Sans" }}
           >
-            stanleyduye@gmail.com
+            {email}
           </Typography>
         </Box>
       </UserDetailsContainer>

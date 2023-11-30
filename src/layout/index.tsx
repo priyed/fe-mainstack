@@ -1,16 +1,21 @@
-import { Box } from "@mui/material";
+import { Box as MuiBox } from "@mui/material";
 import Navbar from "../components/navbar";
+import styled from "styled-components";
 
+const Container = styled(MuiBox)`
+  margin-top: 64px;
+  overflow-x: hidden;
+`;
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <Box>
+    <>
       <Navbar />
-      {children}
-    </Box>
+      <Container>{children}</Container>
+    </>
   );
 };
 

@@ -1,20 +1,20 @@
-import { useRef, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import styled from "styled-components";
 import ProfileDropdown from "./dropdowns/ProfileDropdown";
-
-interface ProfileProps {
-  initials: string;
-  icon: any;
-}
+import { config } from "../../config";
+import axios from "axios";
+import Loader from "../../shared/Loader";
 
 const ProfileContainer = styled(Box)`
-  display: flex;
-  padding: 4px 12px 4px 5px;
-  align-items: center;
-  gap: 8px;
-  border-radius: 100px;
-  background: #eff1f6;
+  @media (min-width: 768px) {
+    display: flex;
+    padding: 4px 12px 4px 5px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    background: #eff1f6;
+  }
 `;
 
 const Avatar = styled(Box)`
@@ -44,9 +44,13 @@ const AvatarContent = styled(Box)`
 `;
 
 const MenuIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
+  display: none;
+  @media (min-width: 768px) {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: block;
+  }
 `;
 
 const profileItems = [
@@ -58,13 +62,39 @@ const profileItems = [
   { title: "Switch Account" },
   { title: "Sign Out" },
 ];
+interface ProfileProps {
+  icon: any;
+}
 
-const Profile = ({ initials, icon }: ProfileProps) => {
+const Profile = ({ icon }: ProfileProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(true);
   const handleDropDownFocus = (state: boolean) => {
     setShowDropdown(!state);
   };
+  const [user, setUser] = useState<{
+    first_name: string;
+    last_name: string;
+    email: string;
+  }>();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { apiUrl } = config;
+        const { data } = await axios.get(`${apiUrl}/user`);
+        setLoading(false);
+        setUser(data);
+      } catch (error: any) {
+        setLoading(false);
+        throw new Error(error);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const initials = `${user?.first_name.charAt(0)}${user?.last_name.charAt(0)}`;
 
   const handleClickOutsideDropdown = (e: any) => {
     if (showDropdown && !dropdownRef.current?.contains(e.target as Node)) {
@@ -76,12 +106,30 @@ const Profile = ({ initials, icon }: ProfileProps) => {
     <div ref={dropdownRef}>
       <ProfileContainer onClick={() => handleDropDownFocus(showDropdown)}>
         <Avatar>
-          <AvatarContent>{initials}</AvatarContent>
+          {loading ? (
+            <CircularProgress
+              sx={{
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto",
+              }}
+            />
+          ) : (
+            <AvatarContent>{initials}</AvatarContent>
+          )}
         </Avatar>
         <MenuIcon src={icon} alt="menu" />
       </ProfileContainer>
       {showDropdown && (
-        <ProfileDropdown initials={initials} profileItems={profileItems} />
+        <ProfileDropdown
+          first_name={user?.first_name}
+          last_name={user?.last_name}
+          email={user?.email}
+          initials={initials}
+          profileItems={profileItems}
+        />
       )}
     </div>
   );
